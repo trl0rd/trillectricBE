@@ -1,0 +1,27 @@
+1. What would break with 5,000 devices?
+The current implementation of the system uses a single PostgreSQL database
+to store all the device data. With 5,000 devices, the amount of data
+generated would be significantly higher than the current amount, which
+could lead to performance issues with the database. Additionally, the
+current system does not have any mechanism in place to handle device
+authentication, so anyone could send data to the system claiming to be
+a Trillectric device.
+
+2. How would you redesign the system to handle that scale?
+To handle the increased load of 5,000 devices, we would need to redesign
+the system to be more scalable. We could use a distributed database
+system.. Also, We could also use a message queuing
+system, such as RabbitMQ, to handle the increased load of incoming data.
+This would allow us to process the data in parallel, which would
+significantly improve performance.
+
+3. How would you ensure only Trillectric-verified devices can send data?
+To ensure that only Trillectric-verified devices can send data to the system,
+we would need to implement some form of device authentication. One way to
+do this would be to use JSON Web Tokens (JWTs) to authenticate devices.
+When a device is verified by Trillectric, we would generate a JWT for that
+device that contains its device ID and other relevant information. The
+device would then include this JWT in all requests it makes to the system.
+The system would then verify the JWT before processing the request. This
+would ensure that only Trillectric-verified devices can send data to the
+system.
